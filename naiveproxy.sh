@@ -285,6 +285,7 @@ installProxy(){
     makeconfig
     makesite
     systemctl start naiveproxy
+    systemctl enable naiveproxy
 }
 
 uninstallProxy(){
