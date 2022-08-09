@@ -286,6 +286,12 @@ installProxy(){
     systemctl start naiveproxy
 }
 
+uninstallProxy(){
+    systemctl stop naiveproxy
+    systemctl disable naiveproxy
+    rm -f /usr/bin/caddy /etc/systemd/system/naiveproxy.service /root/caddy.json
+}
+
 menu() {
     clear
     echo "#############################################################"
