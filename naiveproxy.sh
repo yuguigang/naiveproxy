@@ -294,8 +294,19 @@ uninstallProxy(){
     rm -f /usr/bin/caddy /etc/systemd/system/naiveproxy.service /root/caddy.json
 }
 
+check_status(){
+    if [[ -n $(service naiveproxy status 2>/dev/null | grep "inactive") ]]; then
+        status="${RED}未启动${PLAIN}"
+    elif [[ -n $(service naiveproxy status 2>/dev/null | grep "active") ]]; then
+        status="${GREEN}已启动${PLAIN}"
+    else
+        status="${RED}未安装${PLAIN}"
+    fi
+}
+
 menu() {
     clear
+    check_status
     echo "#############################################################"
     echo -e "#                  ${RED}NaiveProxy  一键安装脚本${PLAIN}                 #"
     echo -e "# ${GREEN}作者${PLAIN}: taffychan                                           #"
