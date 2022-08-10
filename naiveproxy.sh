@@ -331,11 +331,11 @@ menu() {
     echo ""
     echo -e "NaiveProxy 状态：$status"
     echo ""
-    read -rp " 请输入选项 [0-13] ：" answer
+    read -rp " 请输入选项 [0-2] ：" answer
     case $answer in
         1) installProxy ;;
         2) uninstallProxy ;;
-        *) red "请输入正确的选项 [0-13]！" && exit 1 ;;
+        *) red "请输入正确的选项 [0-2]！" && exit 1 ;;
     esac
 }
 
