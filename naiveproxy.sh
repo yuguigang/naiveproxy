@@ -90,8 +90,8 @@ makeconfig(){
     if [[ -n $acmeDomain ]]; then
         domain=$acmeDomain
     else
-        read -rp "请输入NaiveProxy的域名：" domain
-        [[ -z $domain ]] && read -rp "请输入NaiveProxy的域名：" domain
+        read -rp "请输入需要用在NaiveProxy的域名：" domain
+        [[ -z $domain ]] && read -rp "请输入需要用在NaiveProxy的域名：" domain
 
         if [[ ! $SYSTEM == "CentOS" ]]; then
             ${PACKAGE_UPDATE[int]}
