@@ -86,7 +86,7 @@ makesite(){
 }
 
 makeconfig(){
-    acmeDomain=$(bash ~/.acme.sh/acme.sh --list >/dev/null 2>&1 | sed -n 2p | awk -F ' ' '{print $1}')
+    acmeDomain=$(bash ~/.acme.sh/acme.sh --list | sed -n 2p | awk -F ' ' '{print $1}')
     if [[ -n $acmeDomain ]]; then
         domain=$acmeDomain
     else
