@@ -291,6 +291,7 @@ installProxy(){
 uninstallProxy(){
     systemctl stop naiveproxy
     systemctl disable naiveproxy
+    rm -rf /var/www/html
     rm -f /usr/bin/caddy /etc/systemd/system/naiveproxy.service /root/caddy.json
 }
 
