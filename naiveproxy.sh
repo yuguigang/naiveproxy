@@ -165,7 +165,7 @@ makeconfig(){
 
     yellow "正在写入配置文件，请稍等..."
     sleep 2
-    cat > caddy.json <<EOF
+    cat > /usr/bin/naive.json <<EOF
 {
     "admin": {
         "disabled": true
@@ -272,9 +272,17 @@ WantedBy=multi-user.target
 [Service]
 Type=simple
 WorkingDirectory=/root
-ExecStart=/usr/bin/caddy run -config /root/caddy.json
+ExecStart=/usr/bin/caddy run -config /usr/bin/naive.json
 Restart=always
 TEXT
+
+cat > naiveclient.json <<EOF
+{
+  "listen": "socks://127.0.0.1:1080",
+  "proxy": "https://${proxyname}:${proxypwd}@${domain}",
+  "log": ""
+}
+EOF
 }
 
 installProxy(){
@@ -286,13 +294,15 @@ installProxy(){
     makesite
     systemctl start naiveproxy
     systemctl enable naiveproxy
+    green "NaiveProxy 已安装成功！"
+    yellow "客户端配置文件已保存至 /root/naiveclient.json"
 }
 
 uninstallProxy(){
     systemctl stop naiveproxy
     systemctl disable naiveproxy
     rm -rf /var/www/html
-    rm -f /usr/bin/caddy /etc/systemd/system/naiveproxy.service /root/caddy.json
+    rm -f /usr/bin/caddy /etc/systemd/system/naiveproxy.service /usr/bin/naive.json
 }
 
 check_status(){
