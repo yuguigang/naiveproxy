@@ -310,6 +310,23 @@ uninstallProxy(){
     rm -f /root/naive-qvurl.txt /root/naive-client.json
 }
 
+startProxy(){
+    systemctl start naiveproxy
+    systemctl enable naiveproxy
+    green "NaiveProxy 已启动成功！"
+}
+
+stopProxy(){
+    systemctl stop naiveproxy
+    systemctl disable naiveproxy
+    green "NaiveProxy 已停止成功！"
+}
+
+restartProxy(){
+    systemctl restart naiveproxy
+    green "NaiveProxy 已重启成功！"
+}
+
 check_status(){
     if [[ -n $(service naiveproxy status 2>/dev/null | grep "inactive") ]]; then
         status="${RED}未启动${PLAIN}"
@@ -332,15 +349,22 @@ menu() {
     echo -e "  ${GREEN}1.${PLAIN}  安装 NaiveProxy"
     echo -e "  ${GREEN}2.${PLAIN}  ${RED}卸载 NaiveProxy${PLAIN}"
     echo " -------------"
+    echo -e "  ${GREEN}3.${PLAIN}  启动 NaiveProxy"
+    echo -e "  ${GREEN}4.${PLAIN}  停止 NaiveProxy"
+    echo -e "  ${GREEN}5.${PLAIN}  重启 NaiveProxy"
+    echo " -------------"
     echo -e "  ${GREEN}0.${PLAIN} 退出"
     echo ""
     echo -e "NaiveProxy 状态：$status"
     echo ""
-    read -rp " 请输入选项 [0-2] ：" answer
+    read -rp " 请输入选项 [0-5] ：" answer
     case $answer in
         1) installProxy ;;
         2) uninstallProxy ;;
-        *) red "请输入正确的选项 [0-2]！" && exit 1 ;;
+        3) startProxy ;;
+        4) stopProxy ;;
+        5) restartProxy ;;
+        *) red "请输入正确的选项 [0-5]！" && exit 1 ;;
     esac
 }
 
