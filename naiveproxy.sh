@@ -56,14 +56,14 @@ archAffix(){
         * ) red "不支持的CPU架构!" && exit 1 ;;
     esac
 }
-
+#安装 go
 installGolang(){
     wget -N https://go.dev/dl/$(curl https://go.dev/VERSION?m=text).linux-$(archAffix).tar.gz
     tar -xf go*.linux-$(archAffix).tar.gz -C /usr/local/
     export PATH=$PATH:/usr/local/go/bin
     rm -f go*.linux-$(archAffix).tar.gz
 }
-
+# 编译Caddy
 buildCaddy(){
     go install github.com/caddyserver/xcaddy/cmd/xcaddy@latest
     ~/go/bin/xcaddy build --with github.com/caddyserver/forwardproxy@caddy2=github.com/klzgrad/forwardproxy@naive
@@ -233,7 +233,7 @@ makeconfig(){
                             ]
                         }
                     ],
-                    "experimental_http3": true,
+                    # "experimental_http3": true,experimental_http3选项已被弃用
                     "tls_connection_policies": [
                         {
                             "match": {
@@ -272,7 +272,7 @@ WantedBy=multi-user.target
 [Service]
 Type=simple
 WorkingDirectory=/root
-ExecStart=/usr/bin/caddy run -config /usr/bin/naive.json
+ExecStart=/usr/bin/caddy run --config /usr/bin/naive.json
 Restart=always
 TEXT
 
